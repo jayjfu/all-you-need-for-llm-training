@@ -1,0 +1,3 @@
+# All You Need for LLM Training
+
+### TODO: pretraining, post-training and evaluation...
