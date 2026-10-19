@@ -39,25 +39,39 @@ python train_sft.py --steps 100 --seq-len 64
 python rl.py
 ```
 
+**Simple Eval:** generative (GSM8K) and categorical (MMLU) evaluation, backend by vLLM
+```bash
+python eval.py --task gsm8k --model Qwen/Qwen2.5-0.5B-Instruct --max-problems 50
+python eval.py --task mmlu --model Qwen/Qwen2.5-0.5B-Instruct --max-problems 100
+```
+
 ## Pretraining
-Model Architecture + Data + Scaling
+Model Architecture + Data
 
 ## Midtraining
-Annealing, long-context, domain/reasoning warmup.
+Annealing, long-context, domain/reasoning warmup
 
 ## Post-training
-SFT, preference optimization, RL, distillation.
+SFT, preference optimization, RL, distillation
 
 ## Evaluation
-Harnesses, capability vs alignment
+benchmarks, inference throughout, scaling laws
+
+Run a full local evaluation suite with Inspect AI and vLLM:
+```bash
+bash run_eval_suit.sh
+```
+
+## Optimization
+inference: kv cache, training efficiency...
 
 ## Frontier Tracker
-Papers / blogs / tech reports / news
+Tech reports / blogs / papers
 
 Families: ...
 
 ## Others
-Tokenizers, distributed training?
+Tokenizers, distributed training...
 
 ## Reference & Acknowledgement:
 

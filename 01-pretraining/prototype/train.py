@@ -8,7 +8,7 @@ import torch
 import torch.nn.functional as F
 
 from model import GPT, config_from_depth
-from muon import build_optimizer, split_params
+from optim import build_optimizer, split_params
 from tokenizer import BPETokenizer
 from dataset import prepare_shakespeare, read_shard
 from dataloader import PackedLoader, best_fit_pack, tokenize_docs
