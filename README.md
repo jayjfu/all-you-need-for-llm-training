@@ -46,24 +46,36 @@ python eval.py --task mmlu --model Qwen/Qwen2.5-0.5B-Instruct --max-problems 100
 ```
 
 ## Pretraining
-Model Architecture + Data
+
+### Baseline
+WIP: Baseline model + all results in [RESULTS.md](01-pretraining/src/baseline/RESULTS.md)
+
+- Model Architecture: RoPE + pre-norm + RMSNorm + SwiGLU
+- Data: cleaning, mixture ratio
+- Training: AdamW + scheduler (cosine/WSD)
+- Hyperparameter: learning rate, batch size
 
 ## Midtraining
-Annealing, long-context, domain/reasoning warmup
+TODO:
+- Annealing, long-context, domain/reasoning warmup
 
 ## Post-training
-SFT, preference optimization, RL, distillation
+TODO:
+- SFT, preference optimization, RL, distillation
 
 ## Evaluation
-benchmarks, inference throughout, scaling laws
-
 Run a full local evaluation suite with Inspect AI and vLLM:
 ```bash
 bash run_eval_suit.sh
 ```
 
+TODO:
+- Scaling laws: [paper-reproduction](04-evaluation/scaling_laws/paper-reproductions.md)
+- benchmarks, inference throughout
+
 ## Optimization
-inference: kv cache, training efficiency...
+TODO:
+- inference: kv cache, training efficiency...
 
 ## Frontier Tracker
 Tech reports / blogs / papers
