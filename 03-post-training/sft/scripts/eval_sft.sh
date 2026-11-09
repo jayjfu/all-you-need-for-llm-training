@@ -55,7 +55,7 @@ eval_all_tasks() {
 }
 
 # 1. Base model
-#eval_all_tasks "${BASE_MODEL}" "base" "false"
+eval_all_tasks "${BASE_MODEL}" "base" "false"
 
 # 2. Official Instruct model
 eval_all_tasks "${INSTRUCT_MODEL}" "instruct" "true"

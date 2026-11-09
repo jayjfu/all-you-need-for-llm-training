@@ -1,8 +1,7 @@
 
-**Summary:**
+**Takeaways:**
 1. Model size and data should be scaled roughly equally.
-2. 20 tokens per parameter from empirical experience.
-
+2. 20 tokens per parameter from empirical experience.  
 Note: In actual model training, no one trains strictly to the pure ~20 tokens-per-parameter rule due to inference cost.
 
 TODO: papernotes + reproductions??

@@ -5,7 +5,6 @@ from trl import SFTTrainer, SFTConfig
 from datasets import load_dataset
 from peft import LoraConfig
 
-# Configuration
 BASE_MODEL = "Qwen/Qwen3.5-0.8B-Base"
 INSTRUCT_MODEL = "Qwen/Qwen3.5-0.8B"
 DATASET = "trl-lib/Capybara"
@@ -21,7 +20,6 @@ processor = AutoProcessor.from_pretrained(BASE_MODEL)
 instruct_processor = AutoProcessor.from_pretrained(INSTRUCT_MODEL)
 processor.chat_template = instruct_processor.chat_template
 
-# Training function
 def train_variant(name, lr, batch, accum, packing, peft, lora_r=None, lora_alpha=None):
     out_dir = os.path.join(OUTPUT_ROOT, name)
 
@@ -58,9 +56,8 @@ def train_variant(name, lr, batch, accum, packing, peft, lora_r=None, lora_alpha
     )
 
     trainer.train()
-    trainer.save_model(out_dir)
+    trainer.save_model(os.path.join(out_dir, "final"))
 
-# Variants
 # Full fine-tune
 train_variant("sft_lr2e5_bs32_acc1_pack",   2e-5, 32, 1, True,  False)
 train_variant("sft_lr1e5_bs32_acc1_pack",   1e-5, 32, 1, True,  False)

@@ -8,12 +8,10 @@ MODEL = "Qwen/Qwen3.5-0.8B-Base"
 EPOCHS = 1
 OUTPUT_ROOT = "../ckpts"
 
+os.makedirs(OUTPUT_ROOT, exist_ok=True)
+
 raw = load_dataset("qwedsacf/competition_math", split="train")
-
-def is_level_1_to_4(ex):
-    return ex["level"] in {"Level 1", "Level 2", "Level 3", "Level 4"}
-
-filtered = raw.filter(is_level_1_to_4)
+filtered = raw.filter(lambda ex: ex["level"] in {"Level 1", "Level 2", "Level 3", "Level 4"})
 
 def extract_boxed(text):
     m = re.search(r"\\boxed\{(.*?)\}", text)
@@ -41,7 +39,7 @@ def accuracy_reward(completions, ground_truth, **kwargs):
 def format_reward(completions, **kwargs):
     return [0.5 if "\\boxed{" in c else 0.0 for c in completions]
 
-out_dir = os.path.join(OUTPUT_ROOT, "qwen3.5-0.8b-grpo-math")
+out_dir = os.path.join(OUTPUT_ROOT, "qwen3.5-0.8b-trl-grpo-math")
 
 args = GRPOConfig(
     output_dir=out_dir,

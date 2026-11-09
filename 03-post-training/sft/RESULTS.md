@@ -9,4 +9,4 @@ Level-5, BBH, MMLU-Pro, and GPQA.
 | SFT      |                        | 0      | 0     | 0          | 0     | 0        | 0     | 0     |
 | SFT      |                        | 0      | 0     | 0          | 0     | 0        | 0     | 0     |
 | SFT      |                        | 0      | 0     | 0          | 0     | 0        | 0     | 0     |
-| Instruct | Qwen/Qwen3.5-0.8B      | 0      | 0     | 0          | 0     | 0        | 0     | 0     |
+| Instruct | Qwen/Qwen3.5-0.8B      | 53.97  | 42.72 | 12.99      | 33.76 | 16.27    | 26.01 | 30.95 |

@@ -8,20 +8,35 @@ TODO: Roadmaps:
 3. Megatron-style?? parallelism and efficiency
 
 ## SFT
+TODO  
 **Scripts:**
 ```bash
 # Train SFT variants
-python sft_train.py
+python trl_train_sft.py
 
 # Evaluate base + instruct + all SFT variants on leaderboard tasks
-bash sft_eval.sh
+bash eval_sft.sh
 ```
 
 ## Preference
 TODO
 
 ## RL
-TODO
+TODO: GRPO on MATH-lvl-1,2,3,4  
+
+**Scripts:**
+```bash
+# GRPO
+python trl_train_grpo.py
+
+# GRPO (custom) 
+python train_grpo.py
+```
+
+```bash
+# Eval on MATH-lvl-5
+...
+```
 
 ## Distillation
 TODO
@@ -30,7 +45,13 @@ TODO
 We only include all the results on six tasks of LLM learderboard v2 here. Additional results on other benchmarks and custom evaluations 
 are available in the [Evaluation Section](../04-evaluation/README.md).  
 
-TODO: table here
+| Stage      | Model                  | IFEval | MuSR  | MATH Lvl-5 | BBH   | MMLU-Pro | GPQA  | Avg   |
+|------------|------------------------|--------|-------|------------|-------|----------|-------|-------|
+| Base       | Qwen/Qwen3.5-0.8B-Base | 25.88  | 38.10 | 7.33       | 40.72 | 24.84    | 29.19 | 27.68 |
+| SFT        |                        | 0      | 0     | 0          | 0     | 0        | 0     | 0     |
+| Preference |                        | 0      | 0     | 0          | 0     | 0        | 0     | 0     |
+| RL         |                        | 0      | 0     | 0          | 0     | 0        | 0     | 0     |
+| Instruct   | Qwen/Qwen3.5-0.8B      | 53.97  | 42.72 | 12.99      | 33.76 | 16.27    | 26.01 | 30.95 |
 
 ## Benchmarks
 TODO

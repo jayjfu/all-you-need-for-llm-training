@@ -18,10 +18,9 @@ BATCH_SIZE = 1
 NUM_GENERATIONS = 4
 TEMPERATURE = 0.9
 TOP_P = 0.95
-
 BETA = 0.04
-MAX_NEW_TOKENS = 512
 CLIP_EPS = 0.2
+MAX_NEW_TOKENS = 512
 
 os.makedirs(OUTPUT_ROOT, exist_ok=True)
 
@@ -65,9 +64,9 @@ if tokenizer.pad_token is None:
 tokenizer.padding_side = "left"
 
 device = "cuda" if torch.cuda.is_available() else "cpu"
-model = AutoModelForCausalLM.from_pretrained(MODEL, torch_dtype=torch.bfloat16).to(device)
+model = AutoModelForCausalLM.from_pretrained(MODEL, dtype=torch.bfloat16).to(device)
 model.gradient_checkpointing_enable() # trade compute for memory
-ref_model = AutoModelForCausalLM.from_pretrained(MODEL, torch_dtype=torch.bfloat16).to(device)
+ref_model = AutoModelForCausalLM.from_pretrained(MODEL, dtype=torch.bfloat16).to(device)
 ref_model.eval()
 for p in ref_model.parameters():
     p.requires_grad = False
@@ -101,7 +100,9 @@ def compute_advantages(rewards, num_generations, eps=1e-8):
     advantages = torch.where(std < eps, torch.zeros_like(advantages), advantages)
     return advantages.view(-1)
 
+@torch.no_grad()
 def rollout(model, tokenizer, prompts, num_generations, max_new_tokens, temperature, top_p):
+    model.eval()
     all_completions = []
     all_full_ids = []
     all_prompt_lens = []
@@ -112,16 +113,15 @@ def rollout(model, tokenizer, prompts, num_generations, max_new_tokens, temperat
         prompt_len = inputs.input_ids.shape[1]
 
         for _ in range(num_generations):
-            with torch.no_grad():
-                gen_ids = model.generate(
-                    **inputs,
-                    max_new_tokens=max_new_tokens,
-                    do_sample=True,
-                    temperature=temperature,
-                    top_p=top_p,
-                    pad_token_id=tokenizer.pad_token_id,
-                    eos_token_id=tokenizer.eos_token_id,
-                )
+            gen_ids = model.generate(
+                **inputs,
+                max_new_tokens=max_new_tokens,
+                do_sample=True,
+                temperature=temperature,
+                top_p=top_p,
+                pad_token_id=tokenizer.pad_token_id,
+                eos_token_id=tokenizer.eos_token_id,
+            )
             full_ids = gen_ids[0]
             completion_ids = full_ids[prompt_len:]
             completion_text = tokenizer.decode(completion_ids, skip_special_tokens=True)
@@ -131,6 +131,7 @@ def rollout(model, tokenizer, prompts, num_generations, max_new_tokens, temperat
             all_prompt_lens.append(prompt_len)
             all_completion_lens.append(len(completion_ids))
 
+    model.train()
     return all_completions, all_full_ids, all_prompt_lens, all_completion_lens
 
 def grpo_loss(token_logps, old_logps, ref_token_logps, advantages, completion_mask, beta=0.04, clip_eps=0.2):

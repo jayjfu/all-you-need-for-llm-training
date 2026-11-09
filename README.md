@@ -75,12 +75,13 @@ TODO:
 
 ## Optimization
 TODO:
-- inference: kv cache, training efficiency...
+1. inference optimization: kv cache , pagedAttention, quantization, flashAttention, GQA, ...
+2. training efficiency: ...
 
 ## Frontier Tracker
 Tech reports / blogs / papers
 
-Families: ...
+Families: kimi/, qwen/deepseek/, glm/, llama/, gemini/, claude/, gpt/, ...
 
 ## Others
 Tokenizers, distributed training...
@@ -88,6 +89,6 @@ Tokenizers, distributed training...
 ## Reference & Acknowledgement:
 
 - epfml/llm-baselines: [GitHub](https://github.com/epfml/llm-baselines)
-- karpathy/nanochat: [GitHub](https://github.com/karpathy/nanochat)
 - labmlai/annotated_deep_learning_paper_implementations: [GitHub](https://github.com/labmlai/annotated_deep_learning_paper_implementations)
+- - karpathy/nanochat: [GitHub](https://github.com/karpathy/nanochat)
 - allenai/OLMo-core: [GitHub](https://github.com/allenai/OLMo-core/)
